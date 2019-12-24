@@ -1,4 +1,4 @@
- # am_maps.js
+ # am_map.js
 
 A jQuery plugin to quickly create a leaflet map and add multiple interactive layers of points (using LatLong or UTM(x,y) coords). 
 Tested in Leaflet 1.5.1
