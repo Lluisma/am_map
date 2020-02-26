@@ -1,7 +1,7 @@
 /*!
  * A jQuery plugin to quickly create a leaflet map and add multiple interactive layers of points (using LatLong or UTM(x,y) coords).
  * Tested in Leaflet 1.5.1
- * Date: 2019-12-24
+ * Date: 2020-01-13
  */
 
  
@@ -97,13 +97,11 @@
 			var options = this.data("options");
 
 			var layers  = this.data("layers");
-			var layer_name = params.name;
+			var layer_name = (params.name) ? params.name : 'am_map_layer';
 
 			if (layers.indexOf(layer_name) === -1 ) {
 				layers.push(layer_name);
 			}
-
-			var pt_opts = (params.icon) ? { icon: L.divIcon( { className: 'custom-div-icon', html: params.icon } ) } : {};
 
 			var southH = (params.UTMsouth) ? params.UTMsouth : false;
 
@@ -131,9 +129,14 @@
 					var point = [ pt[0], pt[1] ];
 				}
 				
-				var marker_opts = pt_opts;
-				if (pt[2]) { marker_opts.code = pt[2]; }
-				if (pt[3]) { marker_opts.name = pt[3]; }
+				var marker_opts = {};
+				if (pt[2]) {
+					marker_opts = pt[2]; 
+				}
+				
+				if (params.icon) {
+					marker_opts.icon = L.divIcon( { className: 'custom-div-icon', html: params.icon } );
+				}
 
 				arrMarkers.push( L.marker(point, marker_opts) );  
 
@@ -146,18 +149,38 @@
 			// Click and PopUp events
 
 			markers.on('click', function(e) {
+				
 				var elementObj = this._layers[e.layer._leaflet_id];
-				if ((elementObj.options.code) && (params.url)) {
-					location.href = params.url + elementObj.options.code;
+
+				var lat  = elementObj._latlng.lat.toFixed(4);
+				var lng  = elementObj._latlng.lng.toFixed(4);
+				var name = (elementObj.options.name) ? elementObj.options.name : '';
+
+				if (elementObj.options.code && params.url) {
+					name = '<a href="' + params.url + elementObj.options.code + '"><i class="fa fa-link" aria-hidden="true"></i> ' + name + '</a>';
 				}
-			 }).on('mouseover', function (e) {
-				var elementObj = this._layers[e.layer._leaflet_id];
-				if (elementObj.options.name) {
-					elementObj.bindPopup( elementObj.options.name + '' ).openPopup();
-				}
-        	}).on('mouseout', function (e) {
-				var elementObj = this._layers[e.layer._leaflet_id];
-            elementObj.closePopup();
+
+				var desc = (elementObj.options.desc) ? elementObj.options.desc : '';
+
+				var content = '<h4>' + name + '</h4><hr>'
+								+ '<form class="form-inline">'
+								+ '  <label>Lat , Lng   </label></td>'
+								+ '  <input type="text" class="form-control" value="' + lat + ' , ' + lng + '" size="15"></td>'
+								+ '</form>'
+								+ '<hr>'
+								+ '<table>'
+								+ '  <tr>'
+								+ '    <td>'
+								+ '        <a href="https://www.google.cat/maps?q=' + lat + ',' + lng + '" class="btn btn-info" target="_blank" title="Google Maps">'
+								+ '          <i class="fa fa-globe" aria-hidden="true"></i>'
+								+ '        </a>'
+								+ '    </td>'
+							   + '    <td>' + desc + '</td>'
+								+ '  </tr>'
+								+ '</table>';
+
+				elementObj.bindPopup( content ).openPopup();
+
 			});
 				
 			// Zooms on first layer
@@ -168,6 +191,8 @@
 					map.setView( center, options.iniZoom );
 				} else {
 					map.fitBounds(markers.getBounds());
+					// Stores bounds (you can use them externally on maps in a hidden tab, e.g.)
+					this.data("bounds", markers.getBounds());
 				}
 
 			}

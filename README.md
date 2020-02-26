@@ -1,4 +1,4 @@
- # am_map.js
+ # am_maps.js
 
 A jQuery plugin to quickly create a leaflet map and add multiple interactive layers of points (using LatLong or UTM(x,y) coords). 
 Tested in Leaflet 1.5.1
@@ -45,8 +45,10 @@ Tested in Leaflet 1.5.1
 Every point is defined as an array with the following structure:
 * `0` *(float, **required**)* : latitude / x coordinate (UTM)
 * `1` *(float, **required**)* : longitude / y coordinate (UTM)
-* `2` *(string)* : identifier (used with the url param on the click event)
-* `3` *(string)* : description to be showed in the popup on the mouseover event.
+* `2` *(json)* : { 'code' : (string), 'name' : (string), 'text' : (string) }
+** `code` : identifier (used with the url param on the click event)
+** `name` : title to be showed in the popup on the mouseover event.
+** `desc` : description to be showed in the popup on the mouseover event.
 
 > Simple point : `[ 45.09, 4.98 ];` 
 > Complete point: `[ 45.17, 4.98, 1, 'This is a point' ] );` 
