@@ -46,12 +46,12 @@ Every point is defined as an array with the following structure:
 * `0` *(float, **required**)* : latitude / x coordinate (UTM)
 * `1` *(float, **required**)* : longitude / y coordinate (UTM)
 * `2` *(json)* : { 'code' : (string), 'name' : (string), 'text' : (string) }
-** `code` : identifier (used with the url param on the click event)
-** `name` : title to be showed in the popup on the mouseover event.
-** `desc` : description to be showed in the popup on the mouseover event.
+  * `code` : identifier (used with the url param on the click event)
+  * `name` : title to be showed in the popup on the mouseover event.
+  * `desc` : description to be showed in the popup on the mouseover event.
 
 > Simple point : `[ 45.09, 4.98 ];` 
-> Complete point: `[ 45.17, 4.98, 1, 'This is a point' ] );` 
+> Complete point: `[ 45.17, 4.98, { 'code' : 1, 'name' : 'This is a point' ] );` 
 ---
 ## Examples
 
@@ -67,8 +67,8 @@ Every point is defined as an array with the following structure:
     == Adding a collection of points ==========================================================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer2', 'points' : [ [41.55, 2.45], [53.495, -1.083] ] });
 
-    == Adding a point with link and description (click and popup events) ======================
-    $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45, 1, 'Description' ], 'url' : 'https://example.com/?id=' });
+    == Adding a point with link, title description (click and popup events) ======================
+    $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45, { 'code' : 1, 'name' : 'Title', 'desc' : 'Description' ], 'url' : 'https://example.com/?id=' });
 
     == Adding a custom point (using Font Awesome icon set) ====================================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45 ], 'icon' : '<i class="fa fa-stop-circle-o" style="color:#8b0000;"></i>' });
