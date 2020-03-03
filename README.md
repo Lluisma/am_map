@@ -52,6 +52,13 @@ Every point is defined as an array with the following structure:
 
 > Simple point : `[ 45.09, 4.98 ];` 
 > Complete point: `[ 45.17, 4.98, { 'code' : 1, 'name' : 'This is a point' ] );` 
+
+---
+
+## Remove a layer
+    
+    map.am_map('removeLayer', layer_name (string) );
+
 ---
 ## Examples
 

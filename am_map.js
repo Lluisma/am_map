@@ -201,12 +201,15 @@
 
 			if (params.limitZoom) {
 
+				var obj = this;
+
 				map.on('zoomend', function() {
-					if (map.getZoom() < params.limitZoom){
-						map.removeLayer(markers);
-					}
-					else {
-						map.addLayer(markers);
+					if (layers.indexOf(layer_name) >= 0 ) {
+						if (map.getZoom() < params.limitZoom){
+							map.removeLayer(markers);
+						} else {
+							obj.data(layer_name, markers.addTo( map ) );
+						}
 					}
 				});
 
@@ -218,7 +221,35 @@
 
 			return this;
 
-		}
-  	};
+		},
 
+
+		removeLayer : function( layer_name ) {  
+
+			if (!this.data("map")) {
+				am_map_methods.init.apply( this );
+			}
+
+			var map    = this.data("map");	
+			var layers = this.data("layers");
+
+			if (layers.indexOf(layer_name) >= 0 ) {
+
+				map.removeLayer( this.data(layer_name)  );
+
+				const layer_idx = layers.indexOf( layer_name );
+				if (layer_idx > -1) {
+					layers.splice(layer_idx, 1);
+					this.data("layers", layers);
+				}
+
+			}
+
+			return this;
+
+		}
+
+
+	};
+	  
 }( jQuery ));
