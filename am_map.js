@@ -168,7 +168,7 @@
 								+ '  <input type="text" class="form-control" value="' + lat + ' , ' + lng + '" size="15"></td>'
 								+ '</form>'
 								+ '<hr>'
-								+ '<table>'
+								+ '<table width="100%">'
 								+ '  <tr>'
 								+ '    <td>'
 								+ '        <a href="https://www.google.cat/maps?q=' + lat + ',' + lng + '" class="btn btn-info" target="_blank" title="Google Maps">'
