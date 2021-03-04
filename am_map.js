@@ -162,20 +162,22 @@
 
 				var desc = (elementObj.options.desc) ? elementObj.options.desc : '';
 
-				var content = '<h4>' + name + '</h4><hr>'
+				var ruta = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+
+				var content = `<h4>${name}</h4><hr>`
 								+ '<form class="form-inline">'
 								+ '  <label>Lat , Lng   </label></td>'
-								+ '  <input type="text" class="form-control" value="' + lat + ' , ' + lng + '" size="15"></td>'
+								+ `  <input type="text" class="form-control" value="${lat},${lng}" size="15"></td>`
 								+ '</form>'
 								+ '<hr>'
 								+ '<table width="100%">'
 								+ '  <tr>'
 								+ '    <td>'
-								+ '        <a href="https://www.google.cat/maps?q=' + lat + ',' + lng + '" class="btn btn-info" target="_blank" title="Google Maps">'
+								+ `        <a href="${ruta}" class="btn btn-info" target="_blank" title="Google Maps">`
 								+ '          <i class="fa fa-globe" aria-hidden="true"></i>'
 								+ '        </a>'
 								+ '    </td>'
-							   + '    <td>' + desc + '</td>'
+							   + `    <td>${desc}</td>`
 								+ '  </tr>'
 								+ '</table>';
 
@@ -183,12 +185,16 @@
 
 			});
 				
-			// Zooms on first layer
+			// Zoom in on the layer if the 'zoom' option is set or zoom in on the first layer with the map's initial zoom level
 
-			if (layer_name==layers[0]) {	
+			if (params.zoom || (layer_name==layers[0])) {
 
 				if (arrMarkers.length==1) {
-					map.setView( center, options.iniZoom );
+					if (params.zoom) {
+						map.setView( center, params.zoom );
+					} else {
+						map.setView( center, options.iniZoom );
+					}
 				} else {
 					map.fitBounds(markers.getBounds());
 					// Stores bounds (you can use them externally on maps in a hidden tab, e.g.)

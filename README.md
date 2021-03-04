@@ -1,4 +1,4 @@
- # am_maps.js
+ # am_map.js
 
 A jQuery plugin to quickly create a leaflet map and add multiple interactive layers of points (using LatLong or UTM(x,y) coords). 
 Tested in Leaflet 1.5.1
@@ -26,7 +26,9 @@ Tested in Leaflet 1.5.1
 * `background` *(string)*: background type *(default: 'terrain' | 'toner' | 'watercolor' | 'osm' )*
 
 ---
-## Add a layer
+## Manage layers
+
+### Add a layer
     
     map.am_map('addLayer', { layer_settings });
 
@@ -38,6 +40,7 @@ Tested in Leaflet 1.5.1
 * `UTMsouth` *(boolean)* : south hemisphere
 * `icon` *(string)* : custom html icon
 * `url` *(string)* : if defined, the plugin enable click event on every marker 
+* `zoom` *(integer)* : sets the first layer zoom level
 * `limitZoom` *(integer)* : sets the zoom level at which the layer is visible
 
 <a name="points"></a>
@@ -55,33 +58,36 @@ Every point is defined as an array with the following structure:
 
 ---
 
-## Remove a layer
+### Remove a layer
     
     map.am_map('removeLayer', layer_name (string) );
 
 ---
 ## Examples
 
-    == Default Map (Mataró) ===================================================================
+    == Default Map (Mataró) =======================================================================
     $("#div_map").am_map( );
 
-    == Copenhagen toner map ===================================================================
+    == Copenhagen toner map =======================================================================
     $("#div_map").am_map( { 'center' : [55.676111, 12.568889], 'background' : 'toner', 'iniZoom' : 11 } );
 
-    == Adding a point to the map ==============================================================
+    == Adding a point to the map ==================================================================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45 ] });
 
-    == Adding a collection of points ==========================================================
+    == Adding a collection of points ==============================================================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer2', 'points' : [ [41.55, 2.45], [53.495, -1.083] ] });
 
-    == Adding a point with link, title description (click and popup events) ======================
+    == Adding a point to the map with zoom level to set on map after creating layer ===============
+    $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45 ] });
+
+    == Adding a point with link, title description (click and popup events) =======================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45, { 'code' : 1, 'name' : 'Title', 'desc' : 'Description' ], 'url' : 'https://example.com/?id=' });
 
-    == Adding a custom point (using Font Awesome icon set) ====================================
+    == Adding a custom point (using Font Awesome icon set) ========================================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45 ], 'icon' : '<i class="fa fa-stop-circle-o" style="color:#8b0000;"></i>' });
 
 
-    == Adding a UTM point (zone 33) on south hemisphere =======================================
+    == Adding a UTM point (zone 33) on south hemisphere ===========================================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ [712412.50, 7503619.79] ], 'UTMzone' : 33, 'UTMsouth' : true } );
 
 ## Licence
