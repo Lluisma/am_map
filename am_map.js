@@ -1,7 +1,7 @@
 /*!
  * A jQuery plugin to quickly create a leaflet map and add multiple interactive layers of points (using LatLong or UTM(x,y) coords).
  * Tested in Leaflet 1.5.1
- * Date: 2020-01-13
+ * Date: 2023-12-04
  */
 
  
@@ -32,7 +32,6 @@
 	$.fn.am_map.defaults = {
 		center:      [41.55, 2.45],
 		height:      '400px',
-		background:  'terrain',
 		iniZoom:     12
 	};
 
@@ -60,11 +59,7 @@
 		
 					$(this).height( options.height );
 					
-					if (options.background=='osm') {
-						var bgLayer = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-					} else {
-						var bgLayer = new L.StamenTileLayer( options.background );
-					}		
+					var bgLayer = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 				
 					var map = new L.Map(divMap, {
 											center: new L.LatLng( options.center[0], options.center[1] ),

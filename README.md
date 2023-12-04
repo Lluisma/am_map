@@ -9,10 +9,6 @@ Tested in Leaflet 1.5.1
 
         <script type="text/javascript" src="js/Leaflet.UTM/L.LatLng.UTM.js}"></script>
     
-* Stamen backgrounds (only if you need a special background)
-
-        <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
-
 * And, obviously, remember to add the Leaflet plugin to your code.
 ---
 ## Create a map
@@ -23,7 +19,6 @@ Tested in Leaflet 1.5.1
 * `center` *([lat,long])*: center of the map *( default: [41.55, 2.45] )*
 * `height` *(string)*: height of the map *( default: 400px )*
 * `iniZoom` *(integer)*: initial zoom *( default: 12 )*
-* `background` *(string)*: background type *(default: 'terrain' | 'toner' | 'watercolor' | 'osm' )*
 
 ---
 ## Manage layers
@@ -68,8 +63,8 @@ Every point is defined as an array with the following structure:
     == Default Map (Mataró) =======================================================================
     $("#div_map").am_map( );
 
-    == Copenhagen toner map =======================================================================
-    $("#div_map").am_map( { 'center' : [55.676111, 12.568889], 'background' : 'toner', 'iniZoom' : 11 } );
+    == Copenhagen centered map ====================================================================
+    $("#div_map").am_map( { 'center' : [55.676111, 12.568889], 'iniZoom' : 11 } );
 
     == Adding a point to the map ==================================================================
     $("#div_map").am_map( 'addLayer', { 'name' : 'layer1', 'points' : [ 41.55, 2.45 ] });
